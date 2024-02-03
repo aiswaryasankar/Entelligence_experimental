@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "llama"
+version = "0.1.0"
+description = ""
+authors = ["Ishan <345ishaan@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+jupyter = "^1.0.0"
+rich = "^13.5.3"
+yfinance = "^0.2.29"
+setuptools = "^68.2.2"
+yahoo-fin = "^0.8.9.1"
+finvizfinance = "0.14.7"
+pytrends = "^4.9.2"
+llama-index = "^0.9.10"
+llama-hub = "^0.0.50"
+psycopg2-binary = "^2.9.9"
+sqlalchemy = "^2.0.23"
+newsapi-python = "^0.2.7"
+portkey-ai = "^1.1.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

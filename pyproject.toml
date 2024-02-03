@@ -20,7 +20,7 @@ psycopg2-binary = "^2.9.9"
 sqlalchemy = "^2.0.23"
 newsapi-python = "^0.2.7"
 portkey-ai = "^1.1.5"
-
+tweepy = "^4.0.0"
 
 [build-system]
 requires = ["poetry-core"]

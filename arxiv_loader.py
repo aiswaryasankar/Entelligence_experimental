@@ -10,7 +10,7 @@ def get_latest_arxiv_papers():
     arxiv_search = arxiv.Search(
             query='ti:GPT OR ti:LLM OR ti:Agent',
             id_list=[],
-            max_results=10,
+            max_results=100,
             sort_by=arxiv.SortCriterion.SubmittedDate)
     for result in arxiv_search.results():
         results.append({
@@ -18,6 +18,7 @@ def get_latest_arxiv_papers():
             "title": result.title,
             "summary": result.summary,
             "URL": result.entry_id,
+            "pdfLink": result.entry_id.replace('abs', 'pdf') + '.pdf',
             })
     return results
 

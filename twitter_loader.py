@@ -6,7 +6,10 @@ import tweepy
 
 @get_api_key()
 def get_tweets_data(api_key: Dict[str, str], twitter_handles: List[str]):
-    client = tweepy.Client(bearer_token=api_key['TWITTER_BEARER_TOKEN'])
+    client = tweepy.Client(
+            #access_token='BzDYmvNFgBdPoPKNdvZ4p7Frj',
+            #access_token_secret='xQ6BUcwrpPtslB1IxHJmZFd9Bo1gcdrGGSuKrMdQXz2yaGs6xl',
+            bearer_token=api_key['TWITTER_BEARER_TOKEN'])
     results = []
     for username in twitter_handles:
         user = client.get_user(username=username)

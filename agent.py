@@ -16,17 +16,7 @@ from urllib.parse import urlparse
 from fastapi.responses import FileResponse
 from fastapi import HTTPException
 from typing import List, Optional
-from tempfile import NamedTemporaryFile
-from langchain.chains.query_constructor.base import AttributeInfo
-from langchain.retrievers import ContextualCompressionRetriever
-from langchain.retrievers.document_compressors import CohereRerank
-from langchain.retrievers.self_query.base import SelfQueryRetriever
-from logtail import LogtailHandler
-import logging
-from langchain.callbacks.base import BaseCallbackHandler
-from langchain.schema import LLMResult
-from typing import Any, Union
-from queue import SimpleQueue
+from github_trending import *
 
 
 # Agent functions
@@ -95,7 +85,7 @@ def domain_agent(domainAgentRequest: DomainAgentRequest):
                 "type": "function",
                 "function": {
                     "name": "add_trending_repo",
-                    "description": "Summarize all the major changes by different contributors to the repository over the last few days, what did my team do over the last week?, generate a standup for my team",
+                    "description": "Add a trending repo that the user has selected to the database.",
                     "parameters": {}
                 }
             },
@@ -103,7 +93,7 @@ def domain_agent(domainAgentRequest: DomainAgentRequest):
                 "type": "function",
                 "function": {
                     "name": "answer_question_across_repos",
-                    "description": "Only choose this if the user asks for how to approach understanding the codebase, or how to get an overview. Questions such as: 'How do I approach understanding this repo?', 'Can you guide me through this repo?' NOTHING ELSE. Do not select this option to explain how things work. Do not select this option to answer specific questions.  Only select this option for overview questions.",
+                    "description": "Answer question by pulling data from each of the repositories provided.",
                     "parameters": {
                         "type": "object",
                         "properties": {},
@@ -224,7 +214,11 @@ def domain_agent(domainAgentRequest: DomainAgentRequest):
 
 
 def suggest_relevant_papers():
-    pass
+    """
+      This function needs to call the get_trending_papers and get the response.
+    """
+    repoList = pull_trending_github_repos()
+    
 
 def suggest_trending_repos():
     pass
@@ -239,5 +233,5 @@ def answer_question_across_repo():
     pass
 
 def pro_con_code_analysis():
-    pass 
+    pass
 

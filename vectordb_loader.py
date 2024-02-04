@@ -1,7 +1,3 @@
-import logging
-from .serializer import *
-from logtail import LogtailHandler
-from idl import *
 from multiprocessing import Pool
 import os
 import requests
@@ -9,9 +5,6 @@ from openai import OpenAI
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import DeepLake
 import time
-from langchain.chains import LLMChain
-import shutil
-# from ratelimiter import RateLimiter
 from langchain.document_loaders import OnlinePDFLoader
 from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter, Language
 from urllib.parse import urljoin, urlparse, urldefrag
@@ -19,10 +12,8 @@ from llama_index import download_loader
 from bs4 import BeautifulSoup
 from langchain.text_splitter import HTMLHeaderTextSplitter
 from dataclasses import *
-from typing import List, Optional, Dict
+from typing import List
 from dataclasses_json import dataclass_json
-import typing
-from typing import Callable, TypeVar
 
 @dataclass
 class IngestDocumentationRequest:
@@ -36,11 +27,12 @@ class IngestDocumentationResponse:
   Error: Exception
 
 
-def ingest_code():
+def ingest_code(ingestCodeRequest: IngestCodeRequest) -> IngestCodeResponse:
   """
     Ingeting code and adding it to the vector db
   """
   pass
+
 
 def ingest_pdf(ingestDocumentationRequest: IngestDocumentationRequest) -> IngestDocumentationResponse:
   """

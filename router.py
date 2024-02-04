@@ -4,7 +4,7 @@ import io
 import openai
 import pandas as pd
 import time
-from github_trending import pull_trending_github_repos 
+from github_trending import pull_trending_github_repos
 from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any
 from llama_index.llms.openai import OpenAI
@@ -24,9 +24,10 @@ class EntelligenceTools(BaseToolSpec):
         "get_trending_github_repos",
     ]
 
-    def suggest_relevant_papers(self, kw_list: List[str]) -> List[Dict[str, str]]:
+    def suggest_relevant_papers(self, kw_list: List[str]) -> Dict[str, List[Dict[str, Any]]]:
         """Given a list of keywords, searches arxiv to find latest papers which
         are relevant to any keyword in the list.
+        Returns a dictionary storing the different types of repositories.
         """
         return get_latest_arxiv_papers(kw_list)
 

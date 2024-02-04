@@ -3,7 +3,7 @@ import json
 import openai
 from openai import OpenAI
 
-openai.api_key = ''
+openai.api_key = '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'
 
 url = "https://api.gitterapp.com/repositories"
 params = {
@@ -15,9 +15,9 @@ all_descriptions = {}
 llm_repo_urls = []
 
 # Determine which of these repo descriptions are LLM based and categorize them into RAG, agent, model, training, prompting, multimodal
-def determine_if_llm_and_category(description):
+def determine_if_llm_and_category(description, url):
 
-  client = OpenAI(api_key="")
+  client = OpenAI(api_key="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")
   question = f"Given the following repository description: {description}, categorize if it is a repository related to RAG, agents, model application, models, training, prompting, multimodal or other.  It should only be model if the repository is promoting a new model not if it is using a model for a particular application. If its for an application say 'model application'. The response should be in json such as {{'category': 'RAG'}}, {{'category': 'agents'}}.  It should have 'category' as the key."
   response = client.chat.completions.create(
     model="gpt-3.5-turbo-1106",
@@ -27,8 +27,10 @@ def determine_if_llm_and_category(description):
     ],
     response_format={ "type": "json_object" }
   )
-  print("Description: " + str(description) + " category: " + str(response.choices[0].message.content["category"]))
-  return {description: response.choices[0].message.content["category"]}
+  category = json.loads(response.choices[0].message.content)["category"]
+  # print(category)
+  # print("Description: " + str(description) + " category: " + category)
+  return {description: [category, url]}
 
 
 def pull_trending_github_repos():
@@ -40,9 +42,9 @@ def pull_trending_github_repos():
           # Print the response content
           formatted_response = json.dumps(response.json(), indent=2)
           print(formatted_response)
-          print("Num repos: " + str(len(response.json())))
+          # print("Num repos: " + str(len(response.json())))
           for repo in response.json():
-            all_descriptions[repo["name"]] = repo["description"]
+            all_descriptions[repo["name"]] = [repo["description"], repo["url"]]
 
       else:
           print(f"Error: {response.status_code} - {response.text}")
@@ -51,15 +53,17 @@ def pull_trending_github_repos():
       print(f"An error occurred: {e}")
 
   formatted_descriptions = json.dumps(all_descriptions, indent=2)
-  print(formatted_descriptions)
+  # print(formatted_descriptions)
 
   all_categories = []
   # Format the response into category and all the repository
-  for repoName, description in all_descriptions.items():
-    print(repoName)
-    all_categories.append(determine_if_llm_and_category(description))
+  for repoName, data in all_descriptions.items():
+    all_categories.append(determine_if_llm_and_category(data[0], data[1]))
 
-  return all_categories
+  grouped_dict = {}
 
+  for entry in resp:
+    title, [category, url] = list(entry.items())[0]
+    grouped_dict.setdefault(category, []).append({"paper": title, "url": url})
 
-
+  return grouped_dict

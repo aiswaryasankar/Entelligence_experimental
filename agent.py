@@ -15,19 +15,14 @@ from git import Repo
 from urllib.parse import urlparse
 from fastapi.responses import FileResponse
 from fastapi import HTTPException
-from typing import List, Optional
+from typing import List, Optional, Any
 from github_trending import *
 
 
 # Agent functions
 class DomainAgentRequest(BaseModel):
-    githubUsername: str
-    githubAccessToken: str
     githubURL: str
-    repoNames: Any
     question: str
-    history: Any
-    vectorDBUrl : str
 
 class SuggestTrendingReposRequest(BaseModel):
     question: str
@@ -217,20 +212,29 @@ def suggest_relevant_papers():
     """
       This function needs to call the get_trending_papers and get the response.
     """
-    repoList = pull_trending_github_repos()
-    
+    paperList = pull_trending_github_repos()
+    return paperList
+
 
 def suggest_trending_repos():
-    pass
+    """
+      Suggest trending repos
+    """
+    repoList = pull_trending_github_repos()
+    return repoList
+
 
 def add_trending_paper():
     pass
 
+
 def add_trending_repo():
     pass
 
+
 def answer_question_across_repo():
     pass
+
 
 def pro_con_code_analysis():
     pass

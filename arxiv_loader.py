@@ -4,20 +4,28 @@ from util import get_api_key
 import arxiv
 
 
+def get_latest_arxiv_papers(kw_list: List[str]):
+    results = []
+    if not kw_list:
+        query = 'ti:GPT OR ti:LLM OR ti:Agent'
+    else:
+        query = ''
+        for kw in kw_list:
+            if query:
+                query += ' OR'
+            query = f'ti:{kw}'
 
-def get_latest_arxiv_papers():
-    results = []    
     arxiv_search = arxiv.Search(
-            query='ti:GPT OR ti:LLM OR ti:Agent',
+            query=query,
             id_list=[],
-            max_results=100,
+            max_results=10,
             sort_by=arxiv.SortCriterion.SubmittedDate)
     for result in arxiv_search.results():
         results.append({
-            "author": result.authors,
+            #"author": result.authors,
             "title": result.title,
-            "summary": result.summary,
-            "URL": result.entry_id,
+            #"summary": result.summary,
+            #"URL": result.entry_id,
             "pdfLink": result.entry_id.replace('abs', 'pdf') + '.pdf',
             })
     return results

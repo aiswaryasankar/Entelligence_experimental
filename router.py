@@ -4,7 +4,6 @@ import io
 import openai
 import pandas as pd
 import time
-import fitz
 from github_trending import pull_trending_github_repos 
 from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any

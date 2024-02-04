@@ -15,7 +15,11 @@ st.markdown(
     div[data-testid="stVerticalBlock"] div:has(div.fixed-header) {
         position: sticky;
         top: 2.875rem;
+        background-color: #121212;
         z-index: 999;
+    }
+    .fixed-header {
+    background-color: #121212;
     }
 </style>
     """,

@@ -3,7 +3,7 @@ import json
 import openai
 from openai import OpenAI
 
-openai.api_key = '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'
+openai.api_key = ''
 
 url = "https://api.gitterapp.com/repositories"
 params = {
@@ -17,7 +17,7 @@ llm_repo_urls = []
 # Determine which of these repo descriptions are LLM based and categorize them into RAG, agent, model, training, prompting, multimodal
 def determine_if_llm_and_category(description, url):
 
-  client = OpenAI(api_key="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")
+  client = OpenAI(api_key="")
   question = f"Given the following repository description: {description}, categorize if it is a repository related to RAG, agents, model application, models, training, prompting, multimodal or other.  It should only be model if the repository is promoting a new model not if it is using a model for a particular application. If its for an application say 'model application'. The response should be in json such as {{'category': 'RAG'}}, {{'category': 'agents'}}.  It should have 'category' as the key."
   response = client.chat.completions.create(
     model="gpt-3.5-turbo-1106",

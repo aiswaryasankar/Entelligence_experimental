@@ -13,7 +13,6 @@ from llama_index.tools.tool_spec.base import BaseToolSpec
 from llama_index.tools.query_engine import QueryEngineTool
 from arxiv_loader import get_latest_arxiv_papers
 from util import get_api_key
-from vectordb_loader import add_to_chroma, ingest_pdf, IngestDocumentationRequest, IngestDocumentationResponse
 
 GPT_MODEL_NAME = 'gpt-4-0613'
 
